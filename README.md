@@ -1,19 +1,18 @@
 # Laravel Localized Routes
 
-[![GitHub release](https://img.shields.io/github/release/codezero-be/laravel-localized-routes.svg?style=flat-square)](https://github.com/codezero-be/laravel-localized-routes/releases)
-[![Laravel](https://img.shields.io/badge/laravel-11-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
+[![GitHub release](https://img.shields.io/github/release/cdo9/laravel-localized-routes.svg?style=flat-square)](https://github.com/cdo9/laravel-localized-routes/releases)
+[![Laravel](https://img.shields.io/badge/laravel-12-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
 [![License](https://img.shields.io/packagist/l/codezero/laravel-localized-routes.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/codezero-be/laravel-localized-routes/run-tests.yml?style=flat-square&logo=github&logoColor=white&label=tests)](https://github.com/codezero-be/laravel-localized-routes/actions)
-[![Code Coverage](https://img.shields.io/codacy/coverage/a5db8a1321664e67900c96eadc575ece/master?style=flat-square)](https://app.codacy.com/gh/codezero-be/laravel-localized-routes)
-[![Code Quality](https://img.shields.io/codacy/grade/a5db8a1321664e67900c96eadc575ece/master?style=flat-square)](https://app.codacy.com/gh/codezero-be/laravel-localized-routes)
-[![Total Downloads](https://img.shields.io/packagist/dt/codezero/laravel-localized-routes.svg?style=flat-square)](https://packagist.org/packages/codezero/laravel-localized-routes)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/codezero-be/laravel-localized-routes/run-tests.yml?style=flat-square&logo=github&logoColor=white&label=tests)](https://github.com/cdo9/laravel-localized-routes/actions)
+[![Total Dowptoads](https://img.shields.io/packagist/dt/cdo9/laravel-localized-routes.svg?style=flat-square)](https://packagist.org/packages/cdo9/laravel-localized-routes)
 
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/R6R3UQ8V)
+**A convenient way to set up and use localized routes in a Laravel app.**
 
-A convenient way to set up and use localized routes in a Laravel app.
+Sadly [@ivanvermeyen](https://github.com/ivanvermeyen) passed away and his original package [codezero-be/laravel-localized-routes](https://github.com/codezero-be/laravel-localized-routes) won't be maintained anymore. I decided to make a fork with two new features and Laravel 12 support. 
 
 ## 📖 Table of Contents
 
+- [Recent Updates](#-recent-updates)
 - [Requirements](#-requirements)
 - [Upgrade](#-upgrade)
 - [Install](#-install)
@@ -51,11 +50,19 @@ A convenient way to set up and use localized routes in a Laravel app.
 - [Changelog](#-changelog)
 - [License](#-license)
 
+
+## 🔄 Recent updates
+
+- **Livewire support** using [original maintainer code](https://github.com/codezero-be/laravel-localized-routes/pull/93/files).
+- **Advanced Scoped Options** an [issue](https://github.com/codezero-be/laravel-localized-routes/issues/105) I opened.
+- **Laravel 12 Support**
+
 ## ✅ Requirements
 
-- PHP >= 8.1
-- Laravel >= 10
-- Composer ^2.3 (for [codezero/composer-preload-files](https://github.com/codezero-be/composer-preload-files))
+- PHP >= 8.2
+- Laravel >= 12
+
+If you need lower version support, please use [original package](https://github.com/codezero-be/laravel-localized-routes).
 
 ## ⬆ Upgrade
 
@@ -67,10 +74,8 @@ Check our [upgrade guide](UPGRADE.md) for instructions.
 Install this package with Composer:
 
 ```bash
-composer require codezero/laravel-localized-routes
+composer require cdo9/laravel-localized-routes
 ```
-
-Laravel will automatically register the ServiceProvider.
 
 ## ⚙ Configure
 
@@ -89,7 +94,7 @@ You will now find a `localized-routes.php` file in the `config` folder.
 Add any locales you wish to support to your published `config/localized-routes.php` file:
 
 ```php
-'supported_locales' => ['en', 'nl'];
+'supported_locales' => ['en', 'pt'];
 ```
 
 These locales will be used as a slug, prepended to the URL of your localized routes.
@@ -101,7 +106,7 @@ You can also use a custom slug for a locale:
 ```php
 'supported_locales' => [
     'en' => 'english-slug',
-    'nl' => 'dutch-slug',
+    'pt' => 'portuguese-slug',
 ];
 ```
 
@@ -112,7 +117,7 @@ Or you can use a custom domain for a locale:
 ```php
 'supported_locales' => [
     'en' => 'english-domain.test',
-    'nl' => 'dutch-domain.test',
+    'pt' => 'portuguese-domain.test',
 ];
 ```
 
@@ -138,14 +143,14 @@ This option has no effect if you use domains instead of slugs.
 
 ### ☑ Scoped Options
 
-To set an option for one localized route group only, you can specify it as the second parameter of the localized route macro.
-This will override the config file settings. Currently, only 2 options can be overridden.
+To set an option for one localized route group opty, you can specify it as the second parameter of the localized route macro.
+This will override the config file settings. Currently, opty 2 options can be overridden.
 
 ```php
 Route::localized(function () {
     Route::get('about', [AboutController::class, 'index']);
 }, [
-    'supported_locales' => ['en', 'nl', 'fr'],
+    'supported_locales' => ['en', 'pt', 'fr'],
     'omitted_locale' => 'en',
 ]);
 ```
@@ -242,19 +247,19 @@ Route::localized(function () {
 });
 ```
 
-With supported locales `['en', 'nl']`, the above would register:
+With supported locales `['en', 'pt']`, the above would register:
 
 | URI         | Name       |
 |-------------|------------|
 | `/en/about` | `en.about` |
-| `/nl/about` | `nl.about` |
+| `/pt/about` | `pt.about` |
 
 And with the omitted locale set to `en`, the result would be:
 
 | URI         | Name       |
 |-------------|------------|
 | `/about`    | `en.about` |
-| `/nl/about` | `nl.about` |
+| `/pt/about` | `pt.about` |
 
 > In a most practical scenario, you would register a route either localized or non-localized, but not both.
 > If you do, you will always need to specify a locale to generate the URL with the `route()` helper, because existing route names always have priority.
@@ -309,19 +314,19 @@ This registers a `Lang::uri()` macro that enables you to translate individual, h
 Route parameters will not be translated by this macro.
 
 Routes with translated URIs need to have a name in order to generate localized versions of it using the `route()` helper or the `Route::localizedUrl()` macro.
-Because these routes have different slugs depending on the locale, the route name is the only thing that links them together.
+Because these routes have different slugs depending on the locale, the route name is the opty thing that links them together.
 
 First, you create a `routes.php` translation file in your app's `lang` folder for each locale, for example:
 
 ```php
-lang/nl/routes.php
+lang/pt/routes.php
 lang/fr/routes.php
 ```
 
 Then you add the appropriate translations to each file:
 
 ```php
-// lang/nl/routes.php
+// lang/pt/routes.php
 return [
     'about' => 'over',
     'us' => 'ons',
@@ -352,7 +357,7 @@ You can also use `trans()->uri('hello/world')` instead of `Lang::uri('hello/worl
 Using these example translations:
 
 ```php
-// lang/nl/routes.php
+// lang/pt/routes.php
 return [
     'hello' => 'hallo',
     'world' => 'wereld',
@@ -438,7 +443,7 @@ In some cases, you might need to generate a URL for a specific locale.
 For this purpose, an additional locale parameter was added to Laravel's `route()` helper.
 
 ```php
-$url = route('about', [], true, 'nl'); // this will load 'nl.about'
+$url = route('about', [], true, 'pt'); // this will load 'pt.about'
 ```
 
 ### ☑ Generate URLs with Localized Parameters
@@ -456,7 +461,7 @@ public function getSlug($locale = null)
     
     $slugs = [
         'en' => 'en-slug',
-        'nl' => 'nl-slug',
+        'pt' => 'pt-slug',
     ];
 
     return $slugs[$locale] ?? '';
@@ -470,7 +475,7 @@ Now you can pass a localized slug to the `route()` function:
 
 ```php
 route('posts.show', [$post->getSlug()]);
-route('posts.show', [$post->getSlug('nl')], true, 'nl');
+route('posts.show', [$post->getSlug('pt')], true, 'pt');
 ```
 
 #### Use a Custom Localized Route Key
@@ -484,7 +489,7 @@ public function getRouteKey()
     
     $slugs = [
         'en' => 'en-slug',
-        'nl' => 'nl-slug',
+        'pt' => 'pt-slug',
     ];
 
     return $slugs[$locale] ?? '';
@@ -495,7 +500,7 @@ Now you can just pass the model:
 
 ```php
 route('posts.show', [$post]);
-route('posts.show', [$post], true, 'nl');
+route('posts.show', [$post], true, 'pt');
 ```
 
 ### ☑ Fallback URLs
@@ -505,9 +510,9 @@ If the locale parameter for the `route()` helper is not a supported locale, the 
 
 ```php
 // When the fallback locale is set to 'en'
-// and the supported locales are 'en' and 'nl'
+// and the supported locales are 'en' and 'pt'
 
-$url = route('about', [], true, 'nl'); // this will load 'nl.about'
+$url = route('about', [], true, 'pt'); // this will load 'pt.about'
 $url = route('about', [], true, 'wk'); // this will load 'en.about'
 ```
 
@@ -530,7 +535,7 @@ public function getSlug($locale = null)
     
     $slugs = [
         'en' => 'en-slug',
-        'nl' => 'nl-slug',
+        'pt' => 'pt-slug',
     ];
 
     return $slugs[$locale] ?? '';
@@ -542,7 +547,7 @@ Now you can pass a localized slug to the macro:
 ```php
 $current = Route::localizedUrl(null, [$post->getSlug()]);
 $en = Route::localizedUrl('en', [$post->getSlug('en')]);
-$nl = Route::localizedUrl('nl', [$post->getSlug('nl')]);
+$pt = Route::localizedUrl('pt', [$post->getSlug('pt')]);
 ```
 
 #### Use a Custom Route Key
@@ -556,7 +561,7 @@ public function getRouteKey()
     
     $slugs = [
         'en' => 'en-slug',
-        'nl' => 'nl-slug',
+        'pt' => 'pt-slug',
     ];
 
     return $slugs[$locale] ?? '';
@@ -568,7 +573,7 @@ The macro will now automatically figure out what parameters the current route ha
 ```php
 $current = Route::localizedUrl();
 $en = Route::localizedUrl('en');
-$nl = Route::localizedUrl('nl');
+$pt = Route::localizedUrl('pt');
 ```
 
 #### Multiple Route Keys
@@ -597,7 +602,7 @@ Now, the parameters will still be resolved automatically:
 ```php
 $current = Route::localizedUrl();
 $en = Route::localizedUrl('en');
-$nl = Route::localizedUrl('nl');
+$pt = Route::localizedUrl('pt');
 ```
 
 #### Keep or Remove Query String
@@ -614,7 +619,7 @@ $current = Route::localizedUrl(null, [], true, $keepQuery);
 
 The following Blade snippet will add a link to the current page in every alternative locale.
 
-It will only run if the current route is localized or a fallback route.
+It will opty run if the current route is localized or a fallback route.
 
 ```blade
 @if (Route::isLocalized() || Route::isFallback())
@@ -645,8 +650,8 @@ $signedUrl = URL::temporarySignedRoute('reset.password', now()->addMinutes(30), 
 You can also generate a signed route URL for a specific locale:
 
 ```php
-$signedUrl = URL::signedRoute('reset.password', ['user' => $id], null, true, 'nl');
-$signedUrl = URL::temporarySignedRoute('reset.password', now()->addMinutes(30), ['user' => $id], true, 'nl');
+$signedUrl = URL::signedRoute('reset.password', ['user' => $id], null, true, 'pt');
+$signedUrl = URL::temporarySignedRoute('reset.password', now()->addMinutes(30), ['user' => $id], true, 'pt');
 ```
 
 Check out the [Laravel docs](https://laravel.com/docs/urls#signed-urls) for more info on signed routes.
@@ -665,8 +670,8 @@ return redirect()->route('about');
 You can also redirect to URLs in a specific locale:
 
 ```php
-// Redirects to 'nl.about'
-return redirect()->route('about', [], 302, [], 'nl');
+// Redirects to 'pt.about'
+return redirect()->route('about', [], 302, [], 'pt');
 ```
 
 A localized version of the `signedRoute` and `temporarySignedRoute` redirects are included as well:
@@ -676,9 +681,9 @@ A localized version of the `signedRoute` and `temporarySignedRoute` redirects ar
 return redirect()->signedRoute('signed.route', ['user' => $id]);
 return redirect()->temporarySignedRoute('signed.route', now()->addMinutes(30), ['user' => $id]);
 
-// Redirects to 'nl.signed.route'
-return redirect()->signedRoute('signed.route', ['user' => $id], null, 302, [], 'nl');
-return redirect()->temporarySignedRoute('signed.route', now()->addMinutes(30), ['user' => $id], 302, [], 'nl');
+// Redirects to 'pt.signed.route'
+return redirect()->signedRoute('signed.route', ['user' => $id], null, 302, [], 'pt');
+return redirect()->temporarySignedRoute('signed.route', now()->addMinutes(30), ['user' => $id], 302, [], 'pt');
 ```
 
 ## 🪧 Automatically Redirect to Localized URLs
@@ -718,7 +723,7 @@ If a route doesn't exist, a `404` response will be returned.
 // Check if a named route exists in the active locale:
 $exists = Route::hasLocalized('about');
 // Check if a named route exists in a specific locale:
-$exists = Route::hasLocalized('about', 'nl');
+$exists = Route::hasLocalized('about', 'pt');
 ```
 
 ### `Route::isLocalized()`
@@ -729,11 +734,11 @@ $isLocalized = Route::isLocalized();
 // Check if the current route is localized and has a specific name:
 $isLocalized = Route::isLocalized('about');
 // Check if the current route has a specific locale and has a specific name:
-$isLocalized = Route::isLocalized('about', 'nl');
+$isLocalized = Route::isLocalized('about', 'pt');
 // Check if the current route is localized and its name matches a pattern:
 $isLocalized = Route::isLocalized(['admin.*', 'dashboard.*']);
 // Check if the current route has one of the specified locales and has a specific name:
-$isLocalized = Route::isLocalized('about', ['en', 'nl']);
+$isLocalized = Route::isLocalized('about', ['en', 'pt']);
 ```
 
 ### `Route::isFallback()`
@@ -752,7 +757,7 @@ composer test
 ## ☕ Credits
 
 - [Ivan Vermeyen](https://github.com/ivanvermeyen)
-- [All contributors](https://github.com/codezero-be/laravel-localized-routes/contributors)
+- [All original contributors](https://github.com/codezero-be/laravel-localized-routes/contributors)
 
 ## 🔒 Security
 
