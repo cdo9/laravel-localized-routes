@@ -48,11 +48,13 @@ class LocaleConfig
     /**
      * Get the configured supported locales.
      *
+     * @param array|null $locales
+     *
      * @return array
      */
-    public function getSupportedLocales(): array
+    public function getSupportedLocales(?array $locales = null): array
     {
-        return $this->supportedLocales;
+        return $locales ?: $this->supportedLocales;
     }
 
     /**
@@ -251,11 +253,12 @@ class LocaleConfig
     /**
      * Check if custom domains are configured.
      *
+     * @param array|null $locales
      * @return bool
      */
-    public function hasCustomDomains(): bool
+    public function hasCustomDomains(?array $locales = null): bool
     {
-        $firstValue = array_values($this->getSupportedLocales())[0] ?? '';
+        $firstValue = array_values($this->getSupportedLocales($locales))[0] ?? '';
         $containsDot =  strpos($firstValue, '.') !== false;
 
         return $containsDot;

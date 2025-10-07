@@ -27,7 +27,7 @@ class LocalizedRoutesRegistrar
         }
 
         $localeRouteAction = LocaleConfig::getRouteAction();
-        $usingDomains = LocaleConfig::hasCustomDomains();
+        $usingDomains = LocaleConfig::hasCustomDomains($locales);
         $usingCustomSlugs = LocaleConfig::hasCustomSlugs();
 
         // Move the omitted locale to the end of the array to avoid
