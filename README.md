@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/release/cdo9/laravel-localized-routes.svg?style=flat-square)](https://github.com/cdo9/laravel-localized-routes/releases)
 [![Laravel](https://img.shields.io/badge/laravel-12-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
 [![License](https://img.shields.io/packagist/l/codezero/laravel-localized-routes.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/codezero-be/laravel-localized-routes/run-tests.yml?style=flat-square&logo=github&logoColor=white&label=tests)](https://github.com/cdo9/laravel-localized-routes/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/cdo9/laravel-localized-routes/run-tests.yml?style=flat-square&logo=github&logoColor=white&label=tests)](https://github.com/cdo9/laravel-localized-routes/actions)
 [![Total Dowptoads](https://img.shields.io/packagist/dt/cdo9/laravel-localized-routes.svg?style=flat-square)](https://packagist.org/packages/cdo9/laravel-localized-routes)
 
 **A convenient way to set up and use localized routes in a Laravel app.**
